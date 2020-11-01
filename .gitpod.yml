@@ -1,0 +1,21 @@
+tasks:
+  - before: |
+      sed -i "s|APP_URL=|APP_URL=${GITPOD_WORKSPACE_URL}|g" .env
+      sed -i "s|APP_URL=https://|APP_URL=https://8000-|g" .env
+    init: |
+      composer install
+      cp .env.example .env
+      mysql -e 'create database laravel'
+      php artisan key:generate
+      php artisan migrate:install
+      php artisan migrate --seed
+    command: php artisan serve
+
+image:
+  file: .gitpod.Dockerfile
+
+ports:
+  - port: 8000
+    onOpen: open-preview
+  - port: 3306
+    onOpen: ignore
