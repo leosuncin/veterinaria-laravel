@@ -6,6 +6,33 @@
         <h1>Productos</h1>
     </div>
     <div class="col-12">
+        <form method="POST" action="/products" class="jumbotron">
+            @csrf
+            <fieldset class="form-group">
+                <label for="name">Nombre</label>
+                <input id="name" name="name" type="text" class="form-control" />
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="description">Descripcion</label>
+                <textarea id="description" name="description" class="form-control" row="3"></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="price">Precio</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input id="price" name="price" type="text" class="form-control" pattern="^[0-9]+\.?[0-9]{0,2}$" />
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="image">Imagen</label>
+                <input id="image" name="image" type="url" class="form-control" />
+            </fieldset>
+            <button type="submit" class="btn btn-primary">Crear producto</button>
+        </form>
+    </div>
+    <div class="col-12">
         <table class="table table-bordered table-responsive">
             <thead>
                 <tr>
