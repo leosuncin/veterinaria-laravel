@@ -2,6 +2,7 @@
 
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,11 @@ Route::get('/', function () {
 Route::get('/products', function () {
     $products = Product::all();
     return view('products/index', ['products' => $products]);
+});
+
+Route::post('/products', function (Request $request) {
+    $newProduct = new Product($request->all());
+    $newProduct->save();
+
+    return redirect('/products');
 });
