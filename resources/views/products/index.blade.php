@@ -41,6 +41,7 @@
                     <th>Descripcion</th>
                     <th>Precio</th>
                     <th>Imagen</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -54,6 +55,9 @@
                     <td>$ {{ $product->price }}</td>
                     <td>
                         <img src="{{ $product->image }}" height="100" />
+                    </td>
+                    <td>
+                        <a class="btn btn-info btn-small" href="/products/{{ $product->id }}">🔍 Mostrar</a>
                     </td>
                 </tr>
                 @endforeach

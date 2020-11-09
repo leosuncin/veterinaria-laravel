@@ -30,3 +30,7 @@ Route::post('/products', function (Request $request) {
 
     return redirect('/products');
 });
+
+Route::get('/products/{product}', function (Product $product) {
+    return view('products/show', ['product' => $product]);
+});
