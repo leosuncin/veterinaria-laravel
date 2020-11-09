@@ -38,3 +38,10 @@ Route::get('/products/{product}', function (Product $product) {
 Route::get('/products/{product}/edit', function (Product $product) {
     return view('products/edit', ['product' => $product]);
 });
+
+Route::put('/products/{product}', function (Product $product, Request $request) {
+    $product->fill($request->all());
+    $product->save();
+
+    return redirect('/products/'.$product->id);
+});
