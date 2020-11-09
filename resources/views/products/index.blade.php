@@ -58,6 +58,7 @@
                     </td>
                     <td>
                         <a class="btn btn-info btn-small" href="/products/{{ $product->id }}">🔍 Mostrar</a>
+                        <a class="btn btn-primary btn-small" href="/products/{{ $product->id }}/edit">✏️ Editar</a>
                     </td>
                 </tr>
                 @endforeach
