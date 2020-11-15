@@ -59,6 +59,11 @@
                     <td>
                         <a class="btn btn-info btn-small" href="/products/{{ $product->id }}">🔍 Mostrar</a>
                         <a class="btn btn-primary btn-small" href="/products/{{ $product->id }}/edit">✏️ Editar</a>
+                        <form action="/products/{{ $product->id }}" method="POST">
+                            <input type="hidden" name="_method" value="DELETE" />
+                            @csrf
+                            <button class="btn btn-danger btn-small" type="submit">🗑️ Borrar</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
