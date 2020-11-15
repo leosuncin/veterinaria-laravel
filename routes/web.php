@@ -45,3 +45,9 @@ Route::put('/products/{product}', function (Product $product, Request $request) 
 
     return redirect('/products/'.$product->id);
 });
+
+Route::delete('/products/{product}', function (Product $product) {
+    $product->delete();
+
+    return redirect('/products/');
+});
