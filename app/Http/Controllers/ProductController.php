@@ -30,6 +30,10 @@ class ProductController extends Controller
         $newProduct = new Product($request->all());
         $newProduct->save();
 
+        if ($request->isXmlHttpRequest()) {
+            return response()->json($newProduct, 201);
+        }
+
         return redirect('/products');
     }
 

@@ -6,7 +6,7 @@
         <h1>Productos</h1>
     </div>
     <div class="col-12">
-        <form method="POST" action="/products" class="jumbotron">
+        <form id="create-product-form" method="POST" action="/products" class="jumbotron">
             @csrf
             <fieldset class="form-group">
                 <label for="name">Nombre</label>
@@ -71,4 +71,5 @@
         </table>
     </div>
 </div>
+<script src="/js/products.js"></script>
 @endsection
