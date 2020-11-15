@@ -1,8 +1,7 @@
 <?php
 
-use App\Models\Product;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,35 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/products', function () {
-    $products = Product::all();
-    return view('products/index', ['products' => $products]);
-});
-
-Route::post('/products', function (Request $request) {
-    $newProduct = new Product($request->all());
-    $newProduct->save();
-
-    return redirect('/products');
-});
-
-Route::get('/products/{product}', function (Product $product) {
-    return view('products/show', ['product' => $product]);
-});
-
-Route::get('/products/{product}/edit', function (Product $product) {
-    return view('products/edit', ['product' => $product]);
-});
-
-Route::put('/products/{product}', function (Product $product, Request $request) {
-    $product->fill($request->all());
-    $product->save();
-
-    return redirect('/products/'.$product->id);
-});
-
-Route::delete('/products/{product}', function (Product $product) {
-    $product->delete();
-
-    return redirect('/products/');
-});
+Route::resource('/products', ProductController::class);
