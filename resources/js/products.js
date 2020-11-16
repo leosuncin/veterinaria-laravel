@@ -10,6 +10,7 @@ const $name = document.querySelector('input[name="name"]');
  * @type {HTMLTextAreaElement}
  */
 const $description = document.querySelector('textarea[name="description"]');
+const $products = document.getElementById('product-list');
 
 function validarNombre() {
     const entrada = $name.value;
@@ -55,7 +56,26 @@ $form.addEventListener('submit', function (event) {
             return response.json();
         })
         .then(function (result) {
-            console.table(result);
+            const fila = document.createElement('tr')
+            fila.innerHTML = `
+                <td>${ result.id }</td>
+                <td>${ result.name }</td>
+                <td>
+                    <p>${ result.description }</p>
+                </td>
+                <td>$ ${ result.price }</td>
+                <td>
+                    <img src="${ result.image }" height="100" />
+                </td>
+                <td>
+                    <a class="btn btn-info btn-small" href="/products/${ result.id }">🔍 Mostrar</a>
+                    <a class="btn btn-primary btn-small" href="/products/${ result.id }/edit">✏️ Editar</a>
+                    <form action="/products/${ result.id }" method="POST">
+                        <input type="hidden" name="_method" value="DELETE" />
+                        <button class="btn btn-danger btn-small" type="submit">🗑️ Borrar</button>
+                    </form>
+                </td>`;
+            $products.appendChild(fila);
         })
         .catch(function (error) {
             console.error(error);
