@@ -10,7 +10,7 @@
             @csrf
             <fieldset class="form-group">
                 <label for="name">Nombre</label>
-                <input id="name" name="name" type="text" class="form-control" />
+                <input id="name" name="name" type="text" class="form-control" required minlength="5" maxlength="90"/>
             </fieldset>
             <fieldset class="form-group">
                 <label for="description">Descripcion</label>
