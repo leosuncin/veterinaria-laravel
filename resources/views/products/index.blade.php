@@ -14,7 +14,7 @@
             </fieldset>
             <fieldset class="form-group">
                 <label for="description">Descripcion</label>
-                <textarea id="description" name="description" class="form-control" row="3"></textarea>
+                <textarea id="description" name="description" class="form-control" row="3" required></textarea>
             </fieldset>
             <fieldset class="form-group">
                 <label for="price">Precio</label>
