@@ -1,3 +1,5 @@
+import swal from 'sweetalert';
+
 /**
  * @type {HTMLFormElement}
  */
@@ -43,13 +45,26 @@ function validarDescripcion() {
  *
  * @param {Event} event
  */
-function eliminarProductoManejador(event) {
+async function eliminarProductoManejador(event) {
     // Evita que el navegador se recargue
     event.preventDefault();
     // Pregunta al usuario si esta seguro de continuar
-    const answer = confirm('¿Estas seguro de lo que haces?');
+    const answer = await swal(
+        '¿Estas seguro de borrar el producto?',
+        'Esta acción no se puede deshacer',
+        {
+            buttons: {
+                accept: {
+                    text: 'Borrar',
+                    value: true
+                },
+                cancel: 'Cancelar'
+            }
+        }
+    );
 
-    if (answer) { // Si el usuario confirma la eliminación
+    if (answer) {
+        // Si el usuario confirma la eliminación
         /**
          * El formulario que originó el evento «submit»
          * @type {HTMLFormElement}
@@ -58,7 +73,7 @@ function eliminarProductoManejador(event) {
         // Extraer la propiedad `productId` de dataset
         const { productId } = $formDelete.dataset;
         // Realizar la petición al backend
-        fetch($formDelete.getAttribute('action'), {
+        const response = await fetch($formDelete.getAttribute('action'), {
             method: 'DELETE',
             headers: {
                 // Le dice a Laravel que esta es una petición AJAX
@@ -66,16 +81,23 @@ function eliminarProductoManejador(event) {
                 // Establece el token CSRF usando headers
                 'X-CSRF-Token': $formDelete.elements.namedItem('_token').value
             }
-        }).then(response => {
-            if (response.ok) { // Si todo salió bien
-                // Busca la fila del producto a eliminar
-                const $filaProducto = document.getElementById(`product-${productId}`);
-                // Elimina la fila que contiene el producto
-                $filaProducto.remove();
-            } else { // Hubo un error
-                alert('No se pudo borrar el producto, intentelo después');
-            }
         });
+
+        if (response.ok) {
+            // Si todo salió bien
+            // Busca la fila del producto a eliminar
+            const $filaProducto = document.getElementById(
+                `product-${productId}`
+            );
+            // Elimina la fila que contiene el producto
+            $filaProducto.remove();
+            swal('Se elimino el producto', { icon: 'success' });
+        } else {
+            // Hubo un error
+            swal('No se pudo borrar el producto, intentelo después', {
+                icon: 'error'
+            });
+        }
     }
 }
 
