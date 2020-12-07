@@ -6,15 +6,15 @@
         <h1>Productos</h1>
     </div>
     <div class="col-12">
-        <form method="POST" action="/products" class="jumbotron">
+        <form id="create-product-form" method="POST" action="/products" class="jumbotron">
             @csrf
             <fieldset class="form-group">
                 <label for="name">Nombre</label>
-                <input id="name" name="name" type="text" class="form-control" />
+                <input id="name" name="name" type="text" class="form-control" required minlength="5" maxlength="90"/>
             </fieldset>
             <fieldset class="form-group">
                 <label for="description">Descripcion</label>
-                <textarea id="description" name="description" class="form-control" row="3"></textarea>
+                <textarea id="description" name="description" class="form-control" row="3" required></textarea>
             </fieldset>
             <fieldset class="form-group">
                 <label for="price">Precio</label>
@@ -44,9 +44,9 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="product-list">
                 @foreach ($products as $product)
-                <tr>
+                <tr id="product-{{ $product->id }}">
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->name }}</td>
                     <td>
@@ -59,7 +59,7 @@
                     <td>
                         <a class="btn btn-info btn-small" href="/products/{{ $product->id }}">🔍 Mostrar</a>
                         <a class="btn btn-primary btn-small" href="/products/{{ $product->id }}/edit">✏️ Editar</a>
-                        <form action="/products/{{ $product->id }}" method="POST">
+                        <form action="/products/{{ $product->id }}" method="POST" data-product-id="{{ $product->id }}">
                             <input type="hidden" name="_method" value="DELETE" />
                             @csrf
                             <button class="btn btn-danger btn-small" type="submit">🗑️ Borrar</button>
@@ -71,4 +71,5 @@
         </table>
     </div>
 </div>
+<script src="/js/products.js"></script>
 @endsection
