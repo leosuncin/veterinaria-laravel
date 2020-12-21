@@ -29,6 +29,15 @@
                 <label for="image">Imagen</label>
                 <input id="image" name="image" type="url" class="form-control" />
             </fieldset>
+            <fieldset class="form-group">
+                <label for="category">Categoria</label>
+                <select id="category" name="category" required>
+                    <option disabled selected>Seleccione la categoría</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+                </select>
+            </fieldset>
             <button type="submit" class="btn btn-primary">Crear producto</button>
         </form>
     </div>
